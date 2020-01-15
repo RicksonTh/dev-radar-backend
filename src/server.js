@@ -9,7 +9,8 @@ mongoose.connect(
   "mongodb+srv://dev-rick:rcts1721@cluster0-5nyvr.mongodb.net/test?retryWrites=true&w=majority",
   {
     useNewUrlParser: true,
-    useUnifiedTopology: true
+    useUnifiedTopology: true,
+    useCreateIndex: true
     //Dois atributos para removerem mensagens de warning do mongodb
   }
 );

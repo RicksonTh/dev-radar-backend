@@ -11,6 +11,7 @@ const parseStringAsArray = require("../utils/parseStringAsArray");
  */
 
 module.exports = {
+  //Criar dev
   async index(req, res) {
     const devs = await Dev.find();
 
@@ -55,5 +56,38 @@ module.exports = {
     }
 
     return res.send({ dev });
+  },
+
+  //Atualizar dev
+  async update(req, res) {
+    const { github_username, name, latitude, longitude, techs } = req.query;
+
+    let dev = await Dev.findOne({ github_username });
+
+    const techsArray = techs.split(",").map(techs => techs.trim());
+
+    const location = {
+      type: "Point",
+      coordinates: [longitude, latitude]
+    };
+
+    dev = await Dev.update({
+      name,
+      techs: techsArray,
+      location
+    });
+
+    return res.send({ message: "Dev atualizado com sucesso!" });
+  },
+
+  //Deletar dev
+  async delete(req, res) {
+    const { github_username } = req.query;
+
+    let dev = await Dev.findOne({ github_username });
+
+    dev = await Dev.deleteOne({ github_username: github_username });
+
+    return res.send({ message: "Dev deletado com sucesso!" });
   }
 };

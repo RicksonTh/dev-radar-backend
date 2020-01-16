@@ -1,6 +1,5 @@
 const axios = require("axios");
 const Dev = require("../models/Dev");
-const parseStringAsArray = require("../utils/parseStringAsArray");
 
 /* 5 Funções do Controller:
     1. index: listar dados
@@ -18,6 +17,7 @@ module.exports = {
     return res.json(devs);
   },
 
+  //Add dev
   async store(req, res) {
     const { github_username, techs, latitude, longitude } = req.body;
     //Variável com a req do usuário
@@ -34,7 +34,7 @@ module.exports = {
       const { name = login, avatar_url, bio } = apiRes.data;
       //Seleciona os dados que vou utilizar da req
 
-      const techsArray = parseStringAsArray(techs);
+      const techsArray = techs.split(",").map(techs => techs.trim());
       //split() corta o que eu quero da string
       //map() percorre o array
       //trim() corta os espaços antes e

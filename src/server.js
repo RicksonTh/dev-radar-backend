@@ -1,5 +1,6 @@
 const express = require("express");
 const mongoose = require("mongoose");
+const cors = require("cors");
 const routes = require("./router");
 
 const app = express();
@@ -15,6 +16,7 @@ mongoose.connect(
   }
 );
 
+app.use(cors());
 app.use(express.json());
 //Para quer a API entenda reqs em json
 app.use(routes);
